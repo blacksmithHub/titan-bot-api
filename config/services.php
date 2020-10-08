@@ -30,4 +30,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'titan22' => [
+        'url' => env('TITAN22_URL'),
+        'checkout' => env('CHECKOUT_URL')
+    ]
 ];

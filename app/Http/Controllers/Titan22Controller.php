@@ -10,6 +10,16 @@ use Illuminate\Support\Arr;
 class Titan22Controller extends Controller
 {
     /**
+     * Create the controller instance and resolve its service.
+     *
+     */
+    public function __construct()
+    {
+        $this->titan22 = config('services.titan22.url');
+        $this->checkout = config('services.titan22.checkout');
+    }
+
+    /**
      * Place order.
      *
      * @param PlaceOrderRequest $request
@@ -23,7 +33,7 @@ class Titan22Controller extends Controller
 
         $response = $http->request(
             'POST',
-            'https://www.titan22.com/rest/V1/carts/mine/payment-information',
+            sprintf('%s/rest/V1/carts/mine/payment-information', $this->titan22),
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -37,7 +47,7 @@ class Titan22Controller extends Controller
 
         $transactionResponse = $http->request(
             'GET',
-            'https://www.titan22.com/ccpp/htmlredirect/gettransactiondata',
+            sprintf('%s/ccpp/htmlredirect/gettransactiondata', $this->titan22),
             [
                 'headers' => [
                     'Accept' => 'application/json'
@@ -55,7 +65,7 @@ class Titan22Controller extends Controller
 
         $paymentResponse = $http->request(
             'POST',
-            'https://t.2c2p.com/RedirectV3/Payment',
+            sprintf('%s/RedirectV3/Payment', $this->checkout),
             [
                 'headers' => [
                     'Accept' => 'application/x-www-form-urlencoded'
