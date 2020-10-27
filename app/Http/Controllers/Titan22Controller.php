@@ -55,7 +55,7 @@ class Titan22Controller extends Controller
             ]
         );
 
-        if ($transactionResponse->getStatusCode() !== 200) abort($response->getStatusCode(), $response->getBody());
+        if ($transactionResponse->getStatusCode() !== 200) abort($transactionResponse->getStatusCode(), $transactionResponse->getBody());
 
         $transactionResponse = json_decode($transactionResponse->getBody());
 
@@ -74,7 +74,7 @@ class Titan22Controller extends Controller
             ]
         );
 
-        if ($paymentResponse->getStatusCode() !== 200) abort($response->getStatusCode(), $response->getBody());
+        if ($paymentResponse->getStatusCode() !== 200) abort($paymentResponse->getStatusCode(), $paymentResponse->getBody());
 
         $cookie = $cookieJar->getCookieByName(('ASP.NET_SessionId'));
 
